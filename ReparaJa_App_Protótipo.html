@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReparaJá — Protótipo</title>
+<style>
+*{box-sizing:border-box} body{margin:0;background:#eee;font-family:Arial,sans-serif;color:#252238}
+.phone{width:390px;max-width:100%;min-height:100vh;margin:auto;background:#fff;overflow:hidden;position:relative}
+.screen{display:none;min-height:100vh;padding-bottom:82px}.screen.active{display:block}
+.top{padding:22px 22px 14px;background:linear-gradient(135deg,#5d2aa8,#7c43c7);color:white;border-radius:0 0 28px 28px}
+.logo{font-size:25px;font-weight:800}.slogan{font-size:13px;opacity:.9;margin-top:5px}
+h1{font-size:24px;margin:20px 22px 8px}.sub{margin:0 22px 18px;color:#777;font-size:14px;line-height:1.45}
+.card{margin:14px 22px;padding:18px;border:1px solid #eee;border-radius:18px;box-shadow:0 5px 18px #0000000b}
+.btn{width:100%;border:0;border-radius:14px;padding:15px;background:#6a35b4;color:#fff;font-weight:700;font-size:15px;margin-top:10px}
+.btn.orange{background:#f28c28}.btn.light{background:#f4effa;color:#6130a4}.btn:active{transform:scale(.99)}
+.iconbox{width:58px;height:58px;border-radius:16px;background:#f3edfa;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 22px}.service{padding:17px;border:1px solid #eee;border-radius:17px;background:#fff}
+.service b{display:block;margin-top:8px}.service small{color:#888}
+.upload{height:190px;border:2px dashed #c9b5e2;border-radius:20px;margin:16px 22px;display:flex;align-items:center;justify-content:center;text-align:center;color:#7542ae;background:#faf8fd}
+.question{margin:15px 22px}.option{padding:14px;border:1px solid #ddd;border-radius:13px;margin:8px 0}.option.selected{border-color:#6a35b4;background:#f5effb}
+.progress{height:7px;background:#eee;border-radius:9px;margin:0 22px 20px}.progress span{display:block;height:100%;width:75%;background:#6a35b4;border-radius:9px}
+.analyze{text-align:center;padding:80px 30px}.loader{width:78px;height:78px;border:7px solid #eee;border-top-color:#6a35b4;border-radius:50%;margin:25px auto;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.result{margin:18px 22px;padding:20px;border-radius:20px;background:#f8f4fc}.price{font-size:27px;font-weight:800;color:#5f2da5}.tag{display:inline-block;padding:6px 9px;border-radius:10px;background:#e9f7ee;color:#23804a;font-size:12px;font-weight:bold}
+.pro{display:flex;gap:13px;align-items:center}.avatar{width:52px;height:52px;border-radius:50%;background:#ddd;display:flex;align-items:center;justify-content:center;font-size:25px}.stars{color:#f28c28}.bottom{position:fixed;bottom:0;width:390px;max-width:100%;background:#fff;border-top:1px solid #eee;display:flex;justify-content:space-around;padding:12px 5px;z-index:5}.bottom button{border:0;background:none;color:#888;font-size:11px}.bottom button b{display:block;font-size:21px;margin-bottom:3px}.bottom button.active{color:#6332aa}
+.chat{background:#f6f3f9;padding:18px;min-height:350px}.bubble{max-width:78%;padding:12px 14px;border-radius:15px;margin:10px 0;font-size:14px}.left{background:white}.right{background:#6a35b4;color:white;margin-left:auto}
+.input{display:flex;gap:8px;padding:12px 22px}.input input{flex:1;padding:13px;border:1px solid #ddd;border-radius:13px}
+.back{border:0;background:none;color:white;font-size:24px;margin-right:12px}.toprow{display:flex;align-items:center}
+.notice{margin:14px 22px;padding:13px;border-radius:13px;background:#fff4e8;color:#8b5119;font-size:13px}
+</style>
+</head>
+<body>
+<div class="phone">
+
+<section id="home" class="screen active">
+ <div class="top"><div class="logo">🛠️ ReparaJá</div><div class="slogan">Seu problema. Nossa prioridade.</div></div>
+ <h1>O que aconteceu?</h1><p class="sub">Tire uma foto ou grave um vídeo. O ReparaJá ajuda a entender o problema antes de você contratar.</p>
+ <div class="card"><div class="iconbox">📷</div><b>Diagnosticar meu problema</b><p class="sub" style="margin:7px 0">Envie uma foto e responda perguntas rápidas.</p><button class="btn" onclick="go('upload')">Começar diagnóstico</button></div>
+ <div class="notice">⚡ <b>Preciso resolver hoje</b><br>Encontre profissionais disponíveis agora.</div>
+ <h1 style="font-size:19px">Serviços</h1>
+ <div class="grid"><div class="service">⚡<b>Elétrica</b><small>Tomadas, fios, luzes</small></div><div class="service">🚿<b>Hidráulica</b><small>Vazamentos, torneiras</small></div><div class="service">🎨<b>Pintura</b><small>Paredes e reformas</small></div><div class="service">🧱<b>Alvenaria</b><small>Reparos em geral</small></div></div>
+ <nav></nav>
+</section>
+
+<section id="upload" class="screen">
+ <div class="top"><div class="toprow"><button class="back" onclick="go('home')">‹</button><div><div class="logo">Diagnóstico</div><div class="slogan">Vamos entender o problema</div></div></div></div>
+ <h1>Mostre o problema</h1><p class="sub">Uma foto ou vídeo ajuda o ReparaJá a indicar possíveis causas.</p>
+ <div class="upload" onclick="go('questions')">📷<br><b>Adicionar foto ou vídeo</b><br><small>Toque para selecionar</small></div>
+ <div class="card"><b>Onde está o problema?</b><div class="option selected">🚿 Banheiro</div><div class="option">🍳 Cozinha</div><div class="option">🛏️ Quarto</div><div class="option">🏠 Outra área</div><button class="btn" onclick="go('questions')">Continuar</button></div>
+</section>
+
+<section id="questions" class="screen">
+ <div class="top"><div class="toprow"><button class="back" onclick="go('upload')">‹</button><div class="logo">Perguntas rápidas</div></div></div>
+ <h1>Sobre o problema</h1><p class="sub">Suas respostas ajudam a melhorar a indicação.</p>
+ <div class="progress"><span></span></div>
+ <div class="question"><b>Há vazamento de água?</b><div class="option selected" onclick="sel(this)">Sim</div><div class="option" onclick="sel(this)">Não</div></div>
+ <div class="question"><b>O vazamento é contínuo?</b><div class="option" onclick="sel(this)">Sim</div><div class="option selected" onclick="sel(this)">Não</div></div>
+ <div class="question"><b>Você precisa resolver hoje?</b><div class="option" onclick="sel(this)">Sim</div><div class="option selected" onclick="sel(this)">Não</div></div>
+ <div class="card"><button class="btn" onclick="go('analyzing')">Analisar problema</button></div>
+</section>
+
+<section id="analyzing" class="screen">
+ <div class="top"><div class="logo">ReparaJá</div></div>
+ <div class="analyze"><div class="loader"></div><h1 style="margin:0">Analisando seu problema...</h1><p class="sub" style="margin:12px 0">Estamos cruzando suas respostas com o tipo de serviço necessário.</p></div>
+ <button class="btn" style="margin:0 22px;width:calc(100% - 44px)" onclick="go('result')">Ver resultado</button>
+</section>
+
+<section id="result" class="screen">
+ <div class="top"><div class="logo">Resultado</div><div class="slogan">Uma estimativa para você se preparar</div></div>
+ <div class="result"><span class="tag">Possível causa</span><h2>Problema na conexão hidráulica</h2><p style="color:#666">Pelas informações enviadas, o problema pode estar relacionado à conexão ou vedação da tubulação.</p><hr style="border:0;border-top:1px solid #ddd"><small>Faixa estimada do serviço</small><div class="price">R$ 80 – R$ 120</div><small style="color:#888">*Estimativa. O valor final depende da avaliação do profissional.</small></div>
+ <div class="card"><b>Profissional recomendado</b><p>🚿 Encanador / hidráulica</p><button class="btn orange" onclick="go('professionals')">Ver profissionais disponíveis</button></div>
+</section>
+
+<section id="professionals" class="screen">
+ <div class="top"><div class="logo">Profissionais indicados</div><div class="slogan">Com base no seu problema</div></div>
+ <div class="card"><div class="pro"><div class="avatar">👨🏽‍🔧</div><div><b>Carlos Henrique</b><div class="stars">★★★★★ <small style="color:#777">4,9 · 48 avaliações</small></div><small>1,8 km · Disponível hoje</small></div></div><p><b>Faixa para este serviço:</b> R$ 80 – R$ 120</p><button class="btn" onclick="go('proposal')">Ver orçamento</button></div>
+ <div class="card"><div class="pro"><div class="avatar">👨🏻‍🔧</div><div><b>Rafael Souza</b><div class="stars">★★★★★ <small style="color:#777">4,8 · 35 avaliações</small></div><small>2,4 km · Disponível agora</small></div></div><p><b>Faixa para este serviço:</b> R$ 90 – R$ 130</p><button class="btn light" onclick="go('chat')">Conversar</button></div>
+</section>
+
+<section id="proposal" class="screen">
+ <div class="top"><div class="logo">Orçamento</div><div class="slogan">Carlos Henrique · Hidráulica</div></div>
+ <div class="card"><span class="tag">Disponível hoje</span><h2>Reparo hidráulico</h2><p style="color:#666">Avaliação + reparo da conexão/vedação.</p><div class="price">R$ 100,00</div><small>Valor proposto pelo profissional após o diagnóstico inicial.</small><button class="btn orange" onclick="go('tracking')">Contratar serviço</button><button class="btn light" onclick="go('chat')">Tirar dúvidas</button></div>
+ <div class="card"><b>Pagamento</b><p>💳 Pelo app, após a conclusão do serviço.</p></div>
+</section>
+
+<section id="chat" class="screen">
+ <div class="top"><div class="toprow"><button class="back" onclick="go('professionals')">‹</button><div class="logo">Chat com profissional</div></div></div>
+ <div class="chat"><div class="bubble left">Olá! Vi o diagnóstico. Posso avaliar o vazamento e fazer o reparo.</div><div class="bubble right">Ótimo. Você consegue ir hoje?</div><div class="bubble left">Consigo. Posso chegar em cerca de 40 minutos.</div></div>
+ <div class="input"><input placeholder="Digite uma mensagem..."><button class="btn" style="width:58px;margin:0">➤</button></div>
+</section>
+
+<section id="tracking" class="screen">
+ <div class="top"><div class="logo">Acompanhamento</div><div class="slogan">Seu serviço está a caminho</div></div>
+ <div class="card"><div style="font-size:45px;text-align:center">📍</div><h2 style="text-align:center">Carlos está a caminho</h2><p style="text-align:center;color:#777">Chegada estimada: <b>20–30 min</b></p></div>
+ <div class="card"><b>Status do serviço</b><p>✅ Contratado</p><p>🚗 Profissional a caminho</p><p style="color:#aaa">○ Serviço iniciado</p><p style="color:#aaa">○ Concluído</p><button class="btn" onclick="go('home')">Voltar ao início</button></div>
+</section>
+
+<div class="bottom">
+ <button class="active" onclick="go('home')"><b>⌂</b>Início</button>
+ <button onclick="go('professionals')"><b>⌕</b>Profissionais</button>
+ <button onclick="go('tracking')"><b>✓</b>Meus serviços</button>
+ <button onclick="go('home')"><b>☻</b>Perfil</button>
+</div>
+</div>
+<script>
+function go(id){
+ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ window.scrollTo(0,0);
+}
+function sel(el){
+ el.parentElement.querySelectorAll('.option').forEach(x=>x.classList.remove('selected'));
+ el.classList.add('selected');
+}
+</script>
+</body>
+</html>
